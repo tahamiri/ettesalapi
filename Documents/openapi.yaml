@@ -1,0 +1,155 @@
+openapi: 3.0.0
+info:
+  title: Conference service API
+  version: 1.0.0
+paths:
+  /users/:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: User registered
+        '400':
+          description: Invalid input
+  /login/:
+    post:
+      summary: Login a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  token_type:
+                    type: string
+        '401':
+          description: Invalid username or password
+  /conferences/:
+    get:
+      summary: Get all conferences
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Conference'
+        '401':
+          description: Unauthorized
+    post:
+      summary: Create a new conference
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Conference'
+      responses:
+        '201':
+          description: Conference created
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthorized
+  /conferences/{conference_id}:
+    put:
+      summary: Update an existing conference
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: conference_id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Conference'
+      responses:
+        '200':
+          description: Conference updated
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthorized
+        '404':
+          description: Conference not found
+    delete:
+      summary: Delete an existing conference
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: conference_id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '204':
+          description: Conference deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: Conference not found
+components:
+  schemas:
+    Conference:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        Capacity:
+          type: integer
+          items:
+            type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+ 
