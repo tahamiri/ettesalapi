@@ -6,4 +6,4 @@ models/__pycache__/
 app/__pycache__/
 routers/__pycache__/
 schemas/__pycache__/
-.idea/
+idea/
