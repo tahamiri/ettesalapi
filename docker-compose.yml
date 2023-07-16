@@ -1,0 +1,10 @@
+version: '3.10'
+
+services:
+  fast:
+    build: .
+    container_name: fast
+    volumes:
+      - ./:/app/
+    ports:
+      - 8989:8989

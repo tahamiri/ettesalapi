@@ -2,9 +2,12 @@ from fastapi import APIRouter
 from fastapi import Depends, HTTPException, Response
 from fastapi_jwt_auth import AuthJWT
 
-from ..database import SessionLocal
-from ..schemas import conferences as conference_schema
-from ..crud import conferences as conference_crud
+import sys
+sys.path.append("..")
+
+from app.database import SessionLocal
+from app.schemas import conferences as conference_schema
+from app.crud import conferences as conference_crud
 
 
 api_router = APIRouter()

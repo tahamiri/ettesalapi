@@ -3,10 +3,13 @@ from fastapi.responses import JSONResponse
 from fastapi import Depends, Response
 from fastapi_jwt_auth import AuthJWT
 
-from ..database import SessionLocal
-from ..schemas import settings
-from ..schemas import users as user_schema
-from ..crud import users as user_crud
+import sys
+sys.path.append("..")
+
+from app.database import SessionLocal
+from app.schemas import settings
+from app.schemas import users as user_schema
+from app.crud import users as user_crud
 
 
 auth_router = APIRouter()
