@@ -2,7 +2,7 @@
 
 ## how to setup
 
-1. just run
+just run
 
 ```bash
 docker compose up -d --build 
